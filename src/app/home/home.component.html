@@ -1,0 +1,26 @@
+<body>
+    <div class="ui container">
+        <h1>Herzlich Willkommen</h1>
+        <h2>bei der Impfanmeldung.</h2>
+
+
+        <img src="Impfung.jpg" class="img-fluid mx-auto d-block center imageclass" alt="Impfung" width="200px">
+        <p class="text">Sie können sich gerne für Termine anmelden!</p>
+
+        <button><a class="btn effect04" data-sm-link-text="Impfungen" [routerLink]="'../impfungen'"><span>Impfungen</span></a>
+        </button>
+
+        <div *ngIf="!this.authService.isLoggedIn()">
+        <button><a class="btn effect04" data-sm-link-text="Login" [routerLink]="'../login'"><span>Login</span></a>
+        </button>
+        </div>
+
+        <div *ngIf="this.authService.isLoggedIn()">
+            <button><a class="btn effect04" data-sm-link-text="Logout" [routerLink]="'../login'"><span>Logout</span></a>
+            </button>
+        </div>
+
+
+
+</div>
+</body>

@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div *ngIf="this.benutzerImpfung!=null">
+  <h1 class="orange">Angemeldeter Impftermin</h1>
+  <div class="item bs-impfung-liste-item" [impfung]="this.benutzerImpfung">
+  </div>
+</div>
+
+<sa-spinner-circular *ngIf="!loaded"></sa-spinner-circular>
+<div *ngIf="loaded">
+
+  <div class="ui middle aligned selection divided list" *ngIf="this.as.IsLoggedAndAdmin()">
+    <h1>Alle Impftermine</h1>
+    <button><a class="btn effect04 right fixed " data-sm-link-text="neue Impfung" [routerLink]="'../admin'"><span>neue Impfung</span></a>
+    </button>
+      <a *ngFor="let impfung of impfungen" class="item bs-impfung-liste-item"
+         [impfung]="impfung" [routerLink]="impfung.id">
+      </a>
+  </div>
+
+  <div class="ui middle aligned selection divided list" *ngIf="this.as.IsLoggedAndNoAdmin() || !this.as.isLoggedIn()">
+    <h1>Freie Impftermine</h1>
+      <a *ngFor="let impfung of impfungen" class="item bs-impfung-liste-item"
+         [impfung]="impfung"
+         [routerLink]="['../register',impfung.id]">
+      </a>
+  </div>
+</div>

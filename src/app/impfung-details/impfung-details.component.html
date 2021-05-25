@@ -1,0 +1,102 @@
+<div *ngIf="!this.authService.IsLoggedAndAdmin()">
+    <p class="text">Loggen Sie sich als Administrator ein! </p>
+</div>
+
+<div *ngIf="this.authService.IsLoggedAndAdmin()">
+    <div class="ui grid" *ngIf="impfung">
+        <div class="twelve wide column">
+            <h1 class="ui header">{{ impfung.impfdatum }}</h1>
+            <h3 class="ui description">Angem. Personen: {{ impfung.angem_person.length }}</h3>
+            <h3 class="ui description">Max Teilnehmer: {{ impfung.maxteilnehmer }}</h3>
+            <div class="ui divider"></div>
+            <div class="ui grid">
+                <div class="four wide column">
+                    <h4 class="ui header">Impfzeit</h4>
+                    {{ impfung.impfzeit }}
+                </div>
+                <div class="four wide column">
+                    <h4 class="ui header">Impfdatum</h4>
+                    {{ impfung.impfdatum }}
+                </div>
+                <div class="four wide column">
+                    <h4 class="ui header">Impfort</h4>
+                    {{ impfung.impfort.ort }}
+                </div>
+            </div>
+        </div>
+
+
+        <div class="twelve wide column" >
+
+          <p *ngIf="impfung.angem_person.length == 0">
+            Es hat sich noch niemand zur Impfung angemeldet.
+          </p>
+          <table *ngIf="impfung.angem_person.length > 0">
+            <tr>
+              <td>Vorname</td>
+              <td>Nachname</td>
+              <td>Status</td>
+              <td>Aktionen</td>
+            </tr>
+            <tr *ngFor="let angem_person of impfung.angem_person">
+              <td>
+                {{ angem_person.benutzer.vorname }}
+              </td>
+              <td>
+                {{ angem_person.benutzer.nachname }}
+              </td>
+              <td>
+                <span *ngIf="angem_person.impfungverabreicht">
+                  Verabreicht
+                </span>
+                <span *ngIf="!angem_person.impfungverabreicht">
+                  Nicht verabreicht
+                </span>
+              </td>
+              <td>
+                <span *ngIf="!angem_person.impfungverabreicht">
+                  <button class="ui orange button" (click)="setUserVaccination($event,angem_person.benutzer_id)">Als geimpft erfassen</button>
+
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+
+        <div class="sixteen wide column">
+            <div class="ui small images">
+                <!--<img *ngFor="let thumbnail of book.images" [src]="thumbnail.url">-->
+            </div>
+        </div>
+    </div>
+
+    <button><a class="btn effect04" data-sm-link-text="Zurück zur Liste" [routerLink]="'/impfungen'"><span>Zurück zur Liste</span></a>
+    </button>
+
+
+    <button *ngIf="impfung && impfung.angem_person.length == 0" ><a class="btn effect04 far fa-arrow-alt-circle-left" data-sm-link-text="Impfung löschen" (click)="removeImpfung()"><span>Impfung löschen</span></a>
+    </button>
+
+    <button><a class="btn effect04" data-sm-link-text="Bearbeiten" [routerLink]="['../../admin', impfung?.id]"><span>Bearbeiten</span></a>
+    </button>
+
+
+
+    <!--
+        <div>
+            <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
+            <label for="subscribeNews">Zur Impfung anmelden</label>
+        </div>
+
+        <a *ngIf="authService.isLoggedIn()" class="ui tiny yellow labeled icon button"
+           [routerLink]="['../../admin', impfung?.id]">
+            <i class="write icon"></i> Zur Impfung anmelden
+            <input type="checkbox" id="checkbox" name="checkboxImpfung" value="checkbox">
+            <label for="checkbox">Zur Impfung anmelden</label>
+        </a> -->
+
+    <!-- hier sollen die Daten der Benutzer aus der DB ausgelsenen werden, wenn er
+    sich für eine Impfung anmeldet
+    anschließend wird er bei der angemeldeten Impfung angezeicht-->
+</div>

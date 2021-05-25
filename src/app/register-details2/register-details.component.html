@@ -1,0 +1,22 @@
+<div *ngIf="!this.authService.isLoggedIn()">
+ <p class="text"><i class="fa fa-sign-in"></i>&nbsp;Loggen Sie sich bitte ein!</p>
+  <button><a class="btn effect04 far fa-arrow-alt-circle-left" data-sm-link-text="Zurück zur Liste" [routerLink]="'/impfungen'"><span>Zurück zur Liste</span></a>
+  </button>
+</div>
+
+<div *ngIf="this.authService.IsLoggedAndAdmin()">
+    <p class="text">Sie dürfen sich nicht zur Impfung anmelden.</p>
+</div>
+
+<h2 *ngIf="registeredForThisAppointment">Sie haben sich für diesen Impftermin entschieden.</h2><br>
+
+<div *ngIf="this.authService.IsLoggedAndNoAdmin()">
+  <div class="item bs-impfung-liste-item" *ngIf="impfung"
+       [impfung]="this.impfung">
+    </div>
+
+    <button class="ui tiny red labeled icon button" (click)="registerVaccination()" *ngIf="!alreadyRegisteredVaccination">
+      <i class="remove icon"></i> Zur Impfung anmelden
+    </button>
+  <a class="btn effect04 fa fa-tash" data-sm-link-text="Zur Impfung anmelden" (click)="registerVaccination()"><span>Zur Impfung anmelden</span></a>
+</div>

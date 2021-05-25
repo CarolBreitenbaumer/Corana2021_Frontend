@@ -1,0 +1,13 @@
+<div class="content">
+    <h3 class="header center">
+        <p class="fa fa-date"> {{ impfung.impfdatum }}
+    </h3>
+    <div>
+        <!--<p class="card-text"><div class="fa fa-flag"></div> {{impfung.impfort.ort }} | <div class="fa fa-calendar"></div> {{ impfung.impfzeit }} | Max. <div class="fa fa-group"></div>: {{impfung.maxteilnehmer }}>
+       -->
+        <br><p class="fa fa-flag"> {{impfung.impfort.plz }} {{impfung.impfort.ort }}, {{impfung.impfort.strasse }} {{impfung.impfort.hausnummer }}  </p><br>
+        <p class="fa fa-calendar"> {{ impfung.impfzeit }}</p><br>
+        <div >Max. Teilnehmer: {{impfung.maxteilnehmer }}</div>
+    </div>
+</div>
+

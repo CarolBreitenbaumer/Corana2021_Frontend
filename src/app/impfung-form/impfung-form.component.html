@@ -1,0 +1,39 @@
+<h1>Formular für eine Impfung</h1>
+
+<form class="ui large form" [formGroup]="impfungForm" (ngSubmit)="submitForm()">
+    <input type="hidden" name="id">
+
+    <div class="field">
+        <label>Impfzeit</label>
+        <input type="time" formControlName="impfzeit">
+        <div *ngIf="errors.impfzeit" class="ui negative message"> {{ errors.impfzeit }} </div>
+    </div>
+
+    <div class="field">
+        <label>Impfdatum</label>
+        <input type="date" formControlName="impfdatum">
+        <div *ngIf="errors.impfdatum" class="ui negative message"> {{ errors.impfdatum }} </div>
+    </div>
+
+  <div class="field">
+    <span class="ui negative message" [hidden]="!impfungForm.hasError('notInFuture')">
+      Muss in der Zukunft liegen
+    </span>
+  </div>
+
+    <div class="field">
+        <label>Maximale Teilnehmer</label>
+        <input type="number" formControlName="maxteilnehmer">
+        <div *ngIf="errors.maxteilnehmer" class="ui negative message"> {{ errors.maxteilnehmer }} </div>
+    </div>
+  <div class="field">
+    <label>Wähle einen Ort:</label>
+    <select id="ort" name="ort" (change)="changeOrt($event)" [value]="this.impfung.impfort.id">
+      <option *ngFor="let impfort of impforte" [value]="impfort.id">
+        {{impfort.ort}} - {{impfort.plz}}
+      </option>
+    </select>
+    <!--<div *ngIf="errors.maxteilnehmer" class="ui negative message"> {{ errors.maxteilnehmer }} </div>-->
+  </div>
+    <button type="submit" class="ui button" [disabled]="impfungForm.invalid">Speichern</button>
+</form>
